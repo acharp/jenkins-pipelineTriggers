@@ -29,7 +29,7 @@ node('master') {
             ],
             submoduleCfg: [],
             userRemoteConfigs:
-                [[credentialsId: "${params.REPO}", url: "github.com:${params.GITACC}/${params.REPO}.git"]]
+                [[credentialsId: "Arnaud-test", url: "github.com:${params.GITACC}/${params.REPO}.git"]]
         ])
     }
     stage('Run') {
