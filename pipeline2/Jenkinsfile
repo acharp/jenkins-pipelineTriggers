@@ -1,0 +1,43 @@
+properties([
+    pipelineTriggers([cron('@hourly')]),
+    disableConcurrentBuilds(),
+    parameters([
+    string(
+        defaultValue: 'acharp',
+        description: 'Github account',
+        name: 'GITACC'),
+    string(
+        defaultValue: 'jenkins-pipelineTriggers',
+        description: 'Github repo',
+        name: 'REPO'),
+    string(
+        defaultValue: 'master',
+        description: 'Git Branch',
+        name: 'BRANCH')
+    ])
+    ])
+
+node('master') {
+    stage('Checkout') {
+        echo "Checking out ${params.REPO} ..."
+        checkout([
+            $class: 'GitSCM',
+            branches: [[name: "*/${params.BRANCH}"]],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [
+                [$class: 'CleanCheckout']
+            ],
+            submoduleCfg: [],
+            userRemoteConfigs:
+                [[credentialsId: "${params.REPO}", url: "github.com:${params.GITACC}/${params.REPO}.git"]]
+        ])
+    }
+    stage('Run') {
+        sh """
+            echo "Step 1"
+            sleep 30
+            exit 1
+            echo "Step 2"
+        """
+    }
+}
