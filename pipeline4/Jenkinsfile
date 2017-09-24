@@ -19,20 +19,6 @@ properties([
     ])
 
 node('master') {
-    stage('Checkout') {
-        echo "Checking out ${params.REPO} ..."
-        checkout([
-            $class: 'GitSCM',
-            branches: [[name: "*/${params.BRANCH}"]],
-            doGenerateSubmoduleConfigurations: false,
-            extensions: [
-                [$class: 'CleanCheckout']
-            ],
-            submoduleCfg: [],
-            userRemoteConfigs:
-                [[credentialsId: "Arnaud-test", url: "github.com:${params.GITACC}/${params.REPO}.git"]]
-        ])
-    }
     stage('Run') {
         sh """
             echo "YOLO"
