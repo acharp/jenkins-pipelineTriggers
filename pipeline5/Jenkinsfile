@@ -1,0 +1,26 @@
+properties([
+    pipelineTriggers([upstream('test-triggers.p1'), upstream('test-triggers.p2')]),
+    disableConcurrentBuilds(),
+    parameters([
+    string(
+        defaultValue: 'acharp',
+        description: 'Github account',
+        name: 'GITACC'),
+    string(
+        defaultValue: 'jenkins-pipelineTriggers',
+        description: 'Github repo',
+        name: 'REPO'),
+    string(
+        defaultValue: 'master',
+        description: 'Git Branch',
+        name: 'BRANCH')
+    ])
+    ])
+
+node('master') {
+    stage('Run') {
+        sh """
+            echo "YOLO"
+        """
+    }
+}
