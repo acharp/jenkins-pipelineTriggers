@@ -1,5 +1,5 @@
 properties([
-    pipelineTriggers([upstream('test-triggers.p1'), upstream('test-triggers.p2')]),
+    pipelineTriggers([upstream('test-triggers.p1'), cron('@hourly']),
     disableConcurrentBuilds(),
     parameters([
     string(
